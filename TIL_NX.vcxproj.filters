@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Audio">
+      <UniqueIdentifier>{cd7ac0b7-734e-41f1-896b-701c6c8569e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Audio">
+      <UniqueIdentifier>{c5444a36-7f30-4004-b631-d98b7270cd66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Scenes">
+      <UniqueIdentifier>{68b4d5b7-d5df-4644-9d0a-ef7396e46cb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\GUI">
+      <UniqueIdentifier>{8e4bfb1a-33c5-4f30-9b4d-8a7b7bb1c4ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\SDL">
+      <UniqueIdentifier>{05c8993a-7b8f-4e6c-ac2b-ed19c14287cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\MISC">
+      <UniqueIdentifier>{dfa41a80-080d-4611-b53c-638744327348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GUI">
+      <UniqueIdentifier>{37ffdf73-e339-4933-9565-c5f1222fe76f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\SCENES">
+      <UniqueIdentifier>{ad92c4c3-cf80-452b-96eb-29c50face3c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\SDL">
+      <UniqueIdentifier>{f10d5318-9635-4550-9188-7e4f0af9341e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MusicSound.cpp">
+      <Filter>Archivos de origen\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sound.cpp">
+      <Filter>Archivos de origen\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SfxSound.cpp">
+      <Filter>Archivos de origen\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Button.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TitleScreen.cpp">
+      <Filter>Archivos de origen\SCENES</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SplashScreen.cpp">
+      <Filter>Archivos de origen\SCENES</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SceneManager.cpp">
+      <Filter>Archivos de origen\SCENES</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LoadingScreen.cpp">
+      <Filter>Archivos de origen\SCENES</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameScreen.cpp">
+      <Filter>Archivos de origen\SCENES</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sprite.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SDL_Helper.cpp">
+      <Filter>Archivos de origen\SDL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SDL_FontCache.c">
+      <Filter>Archivos de origen\SDL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Text.cpp">
+      <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\MusicSound.hpp">
+      <Filter>Archivos de encabezado\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sound.hpp">
+      <Filter>Archivos de encabezado\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SfxSound.hpp">
+      <Filter>Archivos de encabezado\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SplashScreen.hpp">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TitleScreen.hpp">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LoadingScreen.hpp">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameScreen.hpp">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Button.hpp">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sprite.hpp">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SDL_Helper.hpp">
+      <Filter>Archivos de encabezado\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SDL_FontCache.h">
+      <Filter>Archivos de encabezado\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Settings.h">
+      <Filter>Archivos de encabezado\MISC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Filepaths.h">
+      <Filter>Archivos de encabezado\MISC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Colors.h">
+      <Filter>Archivos de encabezado\MISC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SceneManager.hpp">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Scene.hpp">
+      <Filter>Archivos de encabezado\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Text.hpp">
+      <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
+</Project>
