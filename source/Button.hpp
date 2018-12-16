@@ -39,6 +39,7 @@ public:
 
 	// Button methods
 	bool IsPressed(touchPosition _touch);
+	bool GetPressed();
 	void SetPressed(bool _value);
 	bool IsInteractable();
 	void SetInteractable(bool _value);

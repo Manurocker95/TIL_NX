@@ -38,7 +38,8 @@ GameScreen::~GameScreen()
 	this->m_gameBGM->End(this->m_helper);
 	delete(m_gameBGM);
 
-	this->m_helper->SDL_DestroySound(m_tapSFX);
+	this->m_tapSFX->End(this->m_helper);
+	delete(m_tapSFX);
 
 }
 
@@ -47,8 +48,7 @@ void GameScreen::Start(SDL_Helper * helper)
 	this->m_helper = helper;
 	this->m_helper->SDL_LoadImage(&this->m_background, IMG_BACKGROUND);
 	this->m_gameBGM = new MusicSound(this->m_helper, SND_BGM_GAME, true, 1);
-	this->m_helper->SDL_LoadSound(&this->m_tapSFX, SND_SFX_TAP);
-
+	this->m_tapSFX = new SfxSound(this->m_helper, SND_SFX_TAP, false, 2);
 	this->m_gameBGM->Play(this->m_helper);
 }
 
@@ -68,14 +68,12 @@ void GameScreen::Update()
 		NextScene();
 }
 
-void GameScreen::CheckInputs(u64 kDown, u64 kHeld)
+void GameScreen::CheckInputs(u64 kDown, u64 kHeld, u64 kUp)
 {
-
 	if (kDown & KEY_TOUCH)
 	{
-		u32 i;
-		hidTouchRead(&touch, i);
-
+		hidTouchRead(&this->touch, this->i);
+		m_tapSFX->Play(m_helper);
 	}
 
 	if (kDown & KEY_PLUS)
@@ -85,5 +83,6 @@ void GameScreen::CheckInputs(u64 kDown, u64 kHeld)
 // * We go to the next scene = GameScreen
 void GameScreen::NextScene()
 {	
+	SceneManager::Instance()->SaveData(m_score);
 	SceneManager::Instance()->LoadScene(SceneManager::SCENES::TITLE);
 }

@@ -22,6 +22,7 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 #include <string>
 #include "Scene.hpp"
 #include "MusicSound.hpp"
+#include "SfxSound.hpp"
 
 class GameScreen : public Scene
 {
@@ -30,18 +31,18 @@ private:
 	SDL_Texture * m_background;
 
 	MusicSound * m_gameBGM;
-	Mix_Chunk * m_tapSFX;
+	SfxSound * m_tapSFX;
 
 	bool m_muted;
 	int m_score;
 public:
 
-	GameScreen();										// Constructor
-	~GameScreen();										// Destructor
-	void Start(SDL_Helper * helper) override;			// initialize
-	void Draw() override;								// Draw
-	void CheckInputs(u64 kDown, u64 kHeld) override;	// CheckInput
-	void Update() override;								// Update
+	GameScreen();												// Constructor
+	~GameScreen();												// Destructor
+	void Start(SDL_Helper * helper) override;					// initialize
+	void Draw() override;										// Draw
+	void CheckInputs(u64 kDown, u64 kHeld, u64 kUp) override;	// CheckInput
+	void Update() override;										// Update
 	void NextScene() override;
 	void EndGame();
 };

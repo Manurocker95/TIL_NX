@@ -80,17 +80,30 @@ void TitleScreen::Update()
 		NextScene();
 }
 
-void TitleScreen::CheckInputs(u64 kDown, u64 kHeld)
+void TitleScreen::CheckInputs(u64 kDown, u64 kHeld, u64 kUp)
 {
 	// If we touched  play
 	if (kDown & KEY_TOUCH)
 	{
-		u32 i;
-		hidTouchRead(&this->touch, i);
 		
+		hidTouchRead(&this->touch, this->i);
+
 		if (this->m_playButton->IsPressed(touch))
 		{
 			this->m_buttonTapSFX->Play(this->m_helper);
+		}
+	}
+
+	if (kHeld & KEY_TOUCH)
+	{
+		hidTouchRead(&this->touch, this->i);
+		this->m_playButton->IsPressed(touch);
+	}
+
+	if (kUp & KEY_TOUCH)
+	{
+		if (this->m_playButton->GetPressed())
+		{
 			this->m_changeScene = true;
 			return;
 		}
@@ -102,7 +115,6 @@ void TitleScreen::CheckInputs(u64 kDown, u64 kHeld)
 		this->m_buttonTapSFX->Play(this->m_helper);
 	}
 	
-
 	if (kDown & KEY_PLUS)
 	{
 		SceneManager::Instance()->ExitGame();

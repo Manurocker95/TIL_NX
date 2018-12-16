@@ -57,7 +57,9 @@ public:
 	bool IsOut();							// Method that returns if we are exiting the game from scene (normal exiting)
 	void ExitGame(int _score = -1);			// Method to exit the game (Out = true)
 	void ReadData();						// Method for reading data from our save
+	void SaveData(int _val);
 	void Exit();
+	
 	SDL_Helper * GetHelper();
 
 private:

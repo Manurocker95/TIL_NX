@@ -141,10 +141,12 @@ void SceneManager::CheckInputs()
 	// hidKeysDown returns information about which buttons have been
 	// just pressed in this frame compared to the previous one
 	u64 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
-	// hidKeysDown returns information about which buttons are being held
+	// hidKeysHeld returns information about which buttons are being held
 	u64 kHeld = hidKeysHeld(CONTROLLER_P1_AUTO);
 
-	this->m_actualScene->CheckInputs(kDown, kHeld);
+	u64 kUp = hidKeysUp(CONTROLLER_P1_AUTO);
+
+	this->m_actualScene->CheckInputs(kDown, kHeld, kUp);
 }
 
 void SceneManager::Exit()
@@ -155,4 +157,14 @@ void SceneManager::Exit()
 SDL_Helper * SceneManager::GetHelper()
 {
 	return this->m_helper;
+}
+
+void SceneManager::SaveData(int _value)
+{
+	if (_value > m_bestScore)
+	{
+		std::ofstream outfile(DATA_FILE);
+		outfile << _value;
+		outfile.close();
+	}
 }

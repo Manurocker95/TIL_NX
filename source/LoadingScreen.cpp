@@ -78,7 +78,7 @@ void LoadingScreen::Update()
 		NextScene();
 }
 
-void LoadingScreen::CheckInputs(u64 kDown, u64 kHeld)
+void LoadingScreen::CheckInputs(u64 kDown, u64 kHeld, u64 kUp)
 {
 	// While we are in Loading Screen we DON'T need any input 
 	//if (kDown & KEY_A)

@@ -30,18 +30,18 @@ class Scene
 
 protected:
 	SDL_Helper * m_helper;
-	bool m_changeScene;
-	bool m_changingScene;
 	touchPosition touch;
+	u32 i;
+	bool m_changeScene;
 
 public:
-	Scene() {};																	// Constructor
-	~Scene() { };																// Destructor
-	virtual void Start(SDL_Helper * m_helper) {};													// initialize
-	virtual void Draw() { };		// Draw
-	virtual void CheckInputs(u64 kDown, u64 kHeld) {};												// CheckInput
-	virtual void Update() {};													// Update
-	virtual void NextScene() {};													// Update
+	Scene() {};															// Constructor
+	~Scene() { };														// Destructor
+	virtual void Start(SDL_Helper * m_helper) {};						// initialize
+	virtual void Draw() { };											// Draw
+	virtual void CheckInputs(u64 kDown, u64 kHeld, u64 kUp) {};			// CheckInput
+	virtual void Update() {};											// Update
+	virtual void NextScene() {};										// Update
 };
 
 #endif

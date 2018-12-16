@@ -84,3 +84,8 @@ void Button::SetInteractable(bool _value)
 {
 	this->m_interactable = _value;
 }
+
+bool Button::GetPressed()
+{
+	return this->m_isPressed;
+}
