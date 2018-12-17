@@ -133,8 +133,11 @@ void GameScreen::Update()
 	{
 		this->m_currentTime = SDL_GetTicks();
 
-		if (m_currentTime >= m_timeToSpawn)
+		if (this->m_currentTime >= this->m_timeToSpawn + this->m_lastTime)
+		{
+			this->m_lastTime = this->m_currentTime;
 			Spawn();
+		}		
 	}
 
 	if (this->m_changeScene)
@@ -204,11 +207,11 @@ void GameScreen::AddScore(Circle * _circle)
 	this->m_score += SCORE_TO_ADD;
 	this->m_scoreText->SetText("Score: " + std::to_string(this->m_score));
 
-	_circle->MoveToCoord(200, -94);
+	_circle->OnDrop();
 	_circle->ResetValue();
+	_circle->MoveToCoord(200, -94);
 	
 	this->m_dragging = false;
-	this->m_draggedCircle->OnDrop();
 	this->m_draggedCircle = NULL;
 }
 
@@ -231,9 +234,9 @@ void GameScreen::Spawn()
 
 	++this->m_rounds;
 
-	if (this->m_rounds % ROUNDS_MULTIPLIER == 0 && m_maxSpawn + 1 <= MAX_CIRCLES)
-		++m_maxSpawn;
+	if (this->m_rounds % ROUNDS_MULTIPLIER == 0 && m_maxSpawn + 1 <= MAX_CIRCLES - 1)
+		++this->m_maxSpawn;
 
 
-	m_roundsText->SetText("Rounds: " + std::to_string(this->m_rounds));
+	this->m_roundsText->SetText("Rounds: " + std::to_string(this->m_rounds));
 }

@@ -52,6 +52,7 @@ private:
 	float m_speedMultiplier;
 
 	unsigned int m_currentTime;
+	unsigned int m_lastTime;
 	unsigned int m_timeToSpawn;
 public:
 
