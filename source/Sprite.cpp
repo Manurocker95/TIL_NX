@@ -143,7 +143,18 @@ int Sprite::GetFrameSize(bool _xAxis)
 		return this->m_sizePerFrameY;
 }
 
-bool Sprite::Touched(touchPosition _touch)
+bool Sprite::Touched(touchPosition * _touch)
 {
-	return (_touch.px > this->m_x && _touch.px < this->m_x + this->m_sizePerFrameX) && (_touch.py > this->m_y && _touch.py < this->m_y + this->m_sizePerFrameY);
+	return (_touch->px > this->m_x && _touch->px < this->m_x + this->m_sizePerFrameX) && (_touch->py > this->m_y && _touch->py < this->m_y + this->m_sizePerFrameY);
+}
+
+
+bool Sprite::IsActive()
+{
+	return this->m_active;
+}
+
+void Sprite::SetActive(bool _value)
+{
+	this->m_active = _value;
 }

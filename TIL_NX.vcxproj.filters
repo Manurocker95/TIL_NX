@@ -40,6 +40,12 @@
     <Filter Include="Archivos de origen\SDL">
       <UniqueIdentifier>{f10d5318-9635-4550-9188-7e4f0af9341e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\GAME">
+      <UniqueIdentifier>{98aabb01-87fc-4103-9310-fa8322ee70f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\GAME">
+      <UniqueIdentifier>{cb91b54c-bfea-45ee-9291-df90b717d7c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -83,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="source\Text.cpp">
       <Filter>Archivos de origen\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Circle.cpp">
+      <Filter>Archivos de origen\GAME</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="source\Text.hpp">
       <Filter>Archivos de encabezado\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Circle.hpp">
+      <Filter>Archivos de encabezado\GAME</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -61,7 +61,7 @@ void Button::End(SDL_Helper * _helper)
 	_helper->SDL_DestroyTexture(this->m_pressedSprite);
 }
 
-bool Button::IsPressed(touchPosition _touch)
+bool Button::IsPressed(touchPosition * _touch)
 {
 	if (!this->m_interactable)
 		return false;

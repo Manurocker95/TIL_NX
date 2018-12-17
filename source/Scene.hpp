@@ -31,7 +31,6 @@ class Scene
 protected:
 	SDL_Helper * m_helper;
 	touchPosition touch;
-	u32 i;
 	bool m_changeScene;
 
 public:
@@ -41,7 +40,7 @@ public:
 	virtual void Draw() { };											// Draw
 	virtual void CheckInputs(u64 kDown, u64 kHeld, u64 kUp) {};			// CheckInput
 	virtual void Update() {};											// Update
-	virtual void NextScene() {};										// Update
+	virtual void NextScene() {};										// NextScene
 };
 
 #endif

@@ -36,4 +36,10 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 
 #define DELTA_TIME_REDUCTION 2 // HALF TIME -> SDL_TICKS/(100*reduction)
 
+#define MIN_POS_RED 40
+#define MIN_POS_BLUE 1150
+
+#define SCORE_TO_ADD 1
+
+#define CIRCLE_DISPLACEMENT 3
 #endif

@@ -66,7 +66,7 @@ void TitleScreen::Start(SDL_Helper * helper)
 void TitleScreen::Draw()
 {
 	this->m_helper->SDL_DrawImage(this->m_background, 0, 0);
-	this->m_helper->SDL_DrawImage(this->m_logo, 500, 70);
+	this->m_helper->SDL_DrawImage(this->m_logo, 490, 70);
 
 	// Draw Button
 	this->m_playButton->Draw(m_helper);
@@ -82,28 +82,22 @@ void TitleScreen::Update()
 
 void TitleScreen::CheckInputs(u64 kDown, u64 kHeld, u64 kUp)
 {
-	// If we touched  play
-	if (kDown & KEY_TOUCH)
-	{
-		
-		hidTouchRead(&this->touch, this->i);
-
-		if (this->m_playButton->IsPressed(touch))
-		{
-			this->m_buttonTapSFX->Play(this->m_helper);
-		}
-	}
-
 	if (kHeld & KEY_TOUCH)
 	{
-		hidTouchRead(&this->touch, this->i);
-		this->m_playButton->IsPressed(touch);
+		u32 j;
+		hidTouchRead(&touch, j);
+		
+		if (this->m_playButton->IsPressed(&touch))
+		{
+			//
+		}
+		
 	}
-
-	if (kUp & KEY_TOUCH)
+	else if (kUp & KEY_TOUCH)
 	{
 		if (this->m_playButton->GetPressed())
 		{
+			this->m_buttonTapSFX->Play(this->m_helper);
 			this->m_changeScene = true;
 			return;
 		}
@@ -113,6 +107,7 @@ void TitleScreen::CheckInputs(u64 kDown, u64 kHeld, u64 kUp)
 	{
 		this->m_changeScene = true;
 		this->m_buttonTapSFX->Play(this->m_helper);
+		return;
 	}
 	
 	if (kDown & KEY_PLUS)

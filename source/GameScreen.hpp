@@ -23,18 +23,27 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 #include "Scene.hpp"
 #include "MusicSound.hpp"
 #include "SfxSound.hpp"
+#include "Circle.hpp"
+#include "Text.hpp"
 
 class GameScreen : public Scene
 {
 
 private:
+
+	Circle * m_circle;
+	Circle * m_draggedCircle;
+
+	Text * m_scoreText;
 	SDL_Texture * m_background;
 
 	MusicSound * m_gameBGM;
 	SfxSound * m_tapSFX;
 
+	bool m_dragging;
 	bool m_muted;
 	int m_score;
+	float m_speedMultiplier;
 public:
 
 	GameScreen();												// Constructor
@@ -45,6 +54,7 @@ public:
 	void Update() override;										// Update
 	void NextScene() override;
 	void EndGame();
+	void AddScore(Circle * _circle);
 };
 
 #endif

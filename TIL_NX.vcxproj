@@ -98,6 +98,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\Button.cpp" />
+    <ClCompile Include="source\Circle.cpp" />
     <ClCompile Include="source\GameScreen.cpp" />
     <ClCompile Include="source\LoadingScreen.cpp" />
     <ClCompile Include="source\main.cpp" />
@@ -114,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Button.hpp" />
+    <ClInclude Include="source\Circle.hpp" />
     <ClInclude Include="source\Colors.h" />
     <ClInclude Include="source\Filepaths.h" />
     <ClInclude Include="source\GameScreen.hpp" />

@@ -46,7 +46,7 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 // Loading Screen
 #define IMG_BG_LOADING "romfs:/Assets/Graphics/Loading.png" 
 
-// OTHER
+// Bytton
 #define IMG_BTN_PLAY "romfs:/Assets/Graphics/playBtn.png" 
 #define IMG_BTN_PLAY_PRESSED "romfs:/Assets/Graphics/playBtnPressed.png" 
 #define IMG_BTN_PLAY_NON_INTERACTABLE "romfs:/Assets/Graphics/playBtnNonInteractable.png" 

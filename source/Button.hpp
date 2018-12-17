@@ -38,7 +38,7 @@ public:
 	void End(SDL_Helper * _helper) override;
 
 	// Button methods
-	bool IsPressed(touchPosition _touch);
+	bool IsPressed(touchPosition * _touch);
 	bool GetPressed();
 	void SetPressed(bool _value);
 	bool IsInteractable();
