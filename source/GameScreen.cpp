@@ -21,9 +21,9 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 #include "SceneManager.hpp"
 #include "Colors.h"
 #include "Filepaths.h"
-#include "Settings.h"
 #include <cmath>
-
+#include <ctime>
+#include <cstdlib>
 
 GameScreen::GameScreen() : Scene()
 {
@@ -32,6 +32,7 @@ GameScreen::GameScreen() : Scene()
 	this->m_dragging = false;
 	this->m_score = 0;
 	this->m_speedMultiplier = 1.f;
+	srand(time(NULL));
 }
 
 GameScreen::~GameScreen()
@@ -44,8 +45,11 @@ GameScreen::~GameScreen()
 	this->m_tapSFX->End(this->m_helper);
 	delete(this->m_tapSFX);
 
-	this->m_circle->End(this->m_helper);
-	delete(this->m_helper);
+	for (int i = 0; i < MAX_CIRCLES; i++)
+	{
+		this->m_circles[i]->End(this->m_helper);
+		delete(this->m_circles[i]);
+	}
 
 	this->m_scoreText->End(this->m_helper);
 	delete(this->m_scoreText);
@@ -56,10 +60,25 @@ void GameScreen::Start(SDL_Helper * helper)
 	this->m_helper = helper;
 	this->m_scoreText = new Text(helper, "Score: 0", 525, 20, 15, true, FONT_NORMAL, BLACK);
 	this->m_helper->SDL_LoadImage(&this->m_background, IMG_BACKGROUND);
-	this->m_circle = new Circle(Circle::CIRCLE_TYPE::BLUE, 200, 200, this->m_helper, IMG_BLUE_CIRCLE, 94, 93);
 	this->m_gameBGM = new MusicSound(this->m_helper, SND_BGM_GAME, true, 1);
 	this->m_tapSFX = new SfxSound(this->m_helper, SND_SFX_TAP, false, 2);
 	this->m_gameBGM->Play(this->m_helper);
+
+	int pos = SPAWN_MIN_X;
+	int type = 0;
+	for (int i = 0; i < MAX_CIRCLES; i++)
+	{
+		pos = rand() % SPAWN_MAX_X + SPAWN_MIN_X;
+		type = rand() % 2 + 1;
+		if (type == 1)
+		{
+			this->m_circles[i] = new Circle(Circle::CIRCLE_TYPE::BLUE, pos, -94, this->m_helper, IMG_BLUE_CIRCLE, 94, 93);
+		}
+		else
+		{
+			this->m_circles[i] = new Circle(Circle::CIRCLE_TYPE::RED, pos, -94, this->m_helper, IMG_RED_CIRCLE, 94, 93);
+		}
+	}
 }
 
 void GameScreen::EndGame()
@@ -70,23 +89,31 @@ void GameScreen::EndGame()
 void GameScreen::Draw()
 {
 	this->m_helper->SDL_DrawImage(this->m_background, 0, 0);
-	this->m_circle->Draw(this->m_helper);	
+	for (int i = 0; i < MAX_CIRCLES; i++)
+	{
+		this->m_circles[i]->Draw(this->m_helper);
+	}
 	this->m_scoreText->Draw(this->m_helper);
 }
 
 void GameScreen::Update()
 {
-	m_circle->Update();
+	for (int i = 0; i < MAX_CIRCLES; i++)
+	{
+		this->m_circles[i]->Update();
 
-	if (m_circle->GetValue() == Circle::CORRECT)
-	{
-		AddScore(m_circle);
-	}
-	else if (m_circle->GetValue() == Circle::WRONG)
-	{
-		this->m_circle->ResetValue();
-		this->m_circle->SetActive(false);
-		EndGame();
+		if (this->m_circles[i]->GetValue() == Circle::CORRECT)
+		{
+			AddScore(this->m_circles[i]);
+			break;
+		}
+		else if (this->m_circles[i]->GetValue() == Circle::WRONG)
+		{
+			this->m_circles[i]->ResetValue();
+			this->m_circles[i]->SetActive(false);
+			EndGame();
+			break;
+		}
 	}
 
 	if (this->m_changeScene)
@@ -101,23 +128,24 @@ void GameScreen::CheckInputs(u64 kDown, u64 kHeld, u64 kUp)
 		hidTouchRead(&this->touch, i);
 
 		if (this->m_dragging)
-		{
-			this->m_circle->UpdateDrag(&this->touch);
-			
+		{			
 			if (this->m_draggedCircle != NULL)
 			{
 				this->m_draggedCircle->UpdateDrag(&this->touch);
-			}
-			
+			}		
 		}
 		else
 		{
-			if (this->m_circle->Touched(&this->touch))
+			for (int i = 0; i < MAX_CIRCLES; i++)
 			{
-				this->m_tapSFX->Play(this->m_helper);
-				this->m_draggedCircle = this->m_circle;
-				this->m_dragging = true;
-				this->m_circle->OnDrag(&this->touch);
+				if (this->m_circles[i]->Touched(&this->touch))
+				{
+					this->m_tapSFX->Play(this->m_helper);
+					this->m_draggedCircle = this->m_circles[i];
+					this->m_dragging = true;
+					this->m_circles[i]->OnDrag(&this->touch);
+					break;
+				}
 			}
 		}
 	}
@@ -154,10 +182,15 @@ void GameScreen::AddScore(Circle * _circle)
 	this->m_score += SCORE_TO_ADD;
 	this->m_scoreText->SetText("Score: " + std::to_string(this->m_score));
 
-	_circle->MoveToCoord(200, 200);
+	_circle->MoveToCoord(200, -94);
 	_circle->ResetValue();
 	
 	this->m_dragging = false;
 	this->m_draggedCircle->OnDrop();
 	this->m_draggedCircle = NULL;
+}
+
+void GameScreen::Spawn()
+{
+
 }

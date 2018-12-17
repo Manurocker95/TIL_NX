@@ -5,6 +5,7 @@ Circle::Circle(CIRCLE_TYPE _type, int _x, int _y, SDL_Helper * _helper, char * _
 {
 	this->m_type = _type;
 	this->m_dragging = false;
+	this->m_falling = false;
 	this->m_value = Circle::CIRCLE_VALUE::NOTHING;
 	this->m_speed = 1.f;
 }
@@ -51,7 +52,7 @@ void Circle::Update()
 		return;
 	}
 
-	if (!this->m_dragging)
+	if (!this->m_dragging && this->m_falling)
 	{
 		this->m_y += CIRCLE_DISPLACEMENT * m_speed;
 	}	
@@ -101,9 +102,20 @@ void Circle::SetValue(Circle::CIRCLE_VALUE _value)
 void Circle::ResetValue()
 {
 	this->m_value = Circle::CIRCLE_VALUE::NOTHING;
+	this->m_falling = false;
 }
 
 void Circle::SetSpeed(float _value)
 {
 	this->m_speed = _value;
+}
+
+bool Circle::GetFalling()
+{
+	return this->m_falling;
+}
+
+void Circle::SetFalling(bool _value)
+{
+	this->m_falling = _value;
 }

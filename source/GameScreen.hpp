@@ -25,13 +25,14 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 #include "SfxSound.hpp"
 #include "Circle.hpp"
 #include "Text.hpp"
+#include "Settings.h"
 
 class GameScreen : public Scene
 {
 
 private:
 
-	Circle * m_circle;
+	Circle * m_circles [MAX_CIRCLES];
 	Circle * m_draggedCircle;
 
 	Text * m_scoreText;
@@ -43,6 +44,7 @@ private:
 	bool m_dragging;
 	bool m_muted;
 	int m_score;
+	int m_spawned;
 	float m_speedMultiplier;
 public:
 
@@ -55,6 +57,7 @@ public:
 	void NextScene() override;
 	void EndGame();
 	void AddScore(Circle * _circle);
+	void Spawn();
 };
 
 #endif

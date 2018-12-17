@@ -25,6 +25,7 @@ private:
 
 	CIRCLE_TYPE m_type;
 	bool m_dragging;
+	bool m_falling;
 	float m_speed;
 	CIRCLE_VALUE m_value;
 
@@ -42,6 +43,8 @@ public:
 	void SetValue(CIRCLE_VALUE _value);
 	void ResetValue();
 	void SetSpeed(float _value);
+	bool GetFalling();
+	void SetFalling(bool _value);
 };
 
 #endif

@@ -42,4 +42,10 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 #define SCORE_TO_ADD 1
 
 #define CIRCLE_DISPLACEMENT 3
+
+#define SPAWN_MIN_X 100
+#define SPAWN_MAX_X 1100
+
+#define MAX_CIRCLES 15
+
 #endif
