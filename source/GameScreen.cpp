@@ -35,6 +35,7 @@ GameScreen::GameScreen() : Scene()
 	this->m_spawned = 0;
 	this->m_solved = 0;
 	this->m_maxSpawn = 1;
+	this->m_rounds = 1;
 	this->m_currentTime = SDL_GetTicks();
 	srand(time(NULL));
 }
@@ -56,7 +57,10 @@ GameScreen::~GameScreen()
 	}
 
 	this->m_scoreText->End(this->m_helper);
-	delete(this->m_scoreText);
+	delete(this->m_scoreText);	
+	
+	this->m_roundsText->End(this->m_helper);
+	delete(this->m_roundsText);
 }
 
 void GameScreen::Start(SDL_Helper * helper)
@@ -213,8 +217,14 @@ void GameScreen::Spawn()
 	this->m_spawned = rand() % this->m_maxSpawn + 1; // Between 1 and Max
 	this->m_solved = this->m_spawned;
 
+	int pos = 200;
 	for (int i = 0; i < m_spawned; i++)
+	{
+		pos = rand() % SPAWN_MAX_X + SPAWN_MIN_X;
+		this->m_circles[i]->MoveToCoord(pos, -94);
 		this->m_circles[i]->SetFalling(true);
+	}
+		
 
 	// For the next time
 	this->m_timeToSpawn = rand() % MAX_TIME_TO_SPAWN + MIN_TIME_TO_SPAWN;
