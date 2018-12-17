@@ -32,6 +32,10 @@ GameScreen::GameScreen() : Scene()
 	this->m_dragging = false;
 	this->m_score = 0;
 	this->m_speedMultiplier = 1.f;
+	this->m_spawned = 0;
+	this->m_solved = 0;
+	this->m_maxSpawn = 1;
+	this->m_currentTime = SDL_GetTicks();
 	srand(time(NULL));
 }
 
@@ -59,6 +63,7 @@ void GameScreen::Start(SDL_Helper * helper)
 {
 	this->m_helper = helper;
 	this->m_scoreText = new Text(helper, "Score: 0", 525, 20, 15, true, FONT_NORMAL, BLACK);
+	this->m_roundsText = new Text(helper, "Rounds: 0", 155, 20, 15, true, FONT_NORMAL, BLACK);
 	this->m_helper->SDL_LoadImage(&this->m_background, IMG_BACKGROUND);
 	this->m_gameBGM = new MusicSound(this->m_helper, SND_BGM_GAME, true, 1);
 	this->m_tapSFX = new SfxSound(this->m_helper, SND_SFX_TAP, false, 2);
@@ -70,15 +75,16 @@ void GameScreen::Start(SDL_Helper * helper)
 	{
 		pos = rand() % SPAWN_MAX_X + SPAWN_MIN_X;
 		type = rand() % 2 + 1;
-		if (type == 1)
-		{
-			this->m_circles[i] = new Circle(Circle::CIRCLE_TYPE::BLUE, pos, -94, this->m_helper, IMG_BLUE_CIRCLE, 94, 93);
-		}
-		else
-		{
-			this->m_circles[i] = new Circle(Circle::CIRCLE_TYPE::RED, pos, -94, this->m_helper, IMG_RED_CIRCLE, 94, 93);
-		}
+		this->m_circles[i] = (type == 1) ? new Circle(Circle::CIRCLE_TYPE::BLUE, pos, -94, this->m_helper, IMG_BLUE_CIRCLE, 94, 93) : new Circle(Circle::CIRCLE_TYPE::RED, pos, -94, this->m_helper, IMG_RED_CIRCLE, 94, 93);
 	}
+
+	m_timeToSpawn = rand() % MAX_TIME_TO_SPAWN + MIN_TIME_TO_SPAWN;
+
+	this->m_spawned = rand() % this->m_maxSpawn + 1; // Between 1 and Max
+	this->m_solved = this->m_spawned;
+
+	for (int i = 0; i < m_spawned; i++)
+		this->m_circles[i]->SetFalling(true);
 }
 
 void GameScreen::EndGame()
@@ -94,26 +100,37 @@ void GameScreen::Draw()
 		this->m_circles[i]->Draw(this->m_helper);
 	}
 	this->m_scoreText->Draw(this->m_helper);
+	this->m_roundsText->Draw(this->m_helper);
 }
 
 void GameScreen::Update()
 {
-	for (int i = 0; i < MAX_CIRCLES; i++)
+	if (m_spawned > 0 && m_solved > 0)
 	{
-		this->m_circles[i]->Update();
+		for (int i = 0; i < MAX_CIRCLES; i++)
+		{
+			this->m_circles[i]->Update();
 
-		if (this->m_circles[i]->GetValue() == Circle::CORRECT)
-		{
-			AddScore(this->m_circles[i]);
-			break;
+			if (this->m_circles[i]->GetValue() == Circle::CORRECT)
+			{
+				AddScore(this->m_circles[i]);
+				break;
+			}
+			else if (this->m_circles[i]->GetValue() == Circle::WRONG)
+			{
+				this->m_circles[i]->ResetValue();
+				this->m_circles[i]->SetActive(false);
+				EndGame();
+				break;
+			}
 		}
-		else if (this->m_circles[i]->GetValue() == Circle::WRONG)
-		{
-			this->m_circles[i]->ResetValue();
-			this->m_circles[i]->SetActive(false);
-			EndGame();
-			break;
-		}
+	}
+	else
+	{
+		this->m_currentTime = SDL_GetTicks();
+
+		if (m_currentTime >= m_timeToSpawn)
+			Spawn();
 	}
 
 	if (this->m_changeScene)
@@ -179,6 +196,7 @@ void GameScreen::NextScene()
 
 void GameScreen::AddScore(Circle * _circle)
 {
+	--this->m_solved;
 	this->m_score += SCORE_TO_ADD;
 	this->m_scoreText->SetText("Score: " + std::to_string(this->m_score));
 
@@ -192,5 +210,20 @@ void GameScreen::AddScore(Circle * _circle)
 
 void GameScreen::Spawn()
 {
+	this->m_spawned = rand() % this->m_maxSpawn + 1; // Between 1 and Max
+	this->m_solved = this->m_spawned;
 
+	for (int i = 0; i < m_spawned; i++)
+		this->m_circles[i]->SetFalling(true);
+
+	// For the next time
+	this->m_timeToSpawn = rand() % MAX_TIME_TO_SPAWN + MIN_TIME_TO_SPAWN;
+
+	++this->m_rounds;
+
+	if (this->m_rounds % ROUNDS_MULTIPLIER == 0 && m_maxSpawn + 1 <= MAX_CIRCLES)
+		++m_maxSpawn;
+
+
+	m_roundsText->SetText("Rounds: " + std::to_string(this->m_rounds));
 }

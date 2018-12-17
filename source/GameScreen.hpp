@@ -36,6 +36,7 @@ private:
 	Circle * m_draggedCircle;
 
 	Text * m_scoreText;
+	Text * m_roundsText;
 	SDL_Texture * m_background;
 
 	MusicSound * m_gameBGM;
@@ -45,7 +46,13 @@ private:
 	bool m_muted;
 	int m_score;
 	int m_spawned;
+	int m_maxSpawn;
+	int m_solved;
+	int m_rounds;
 	float m_speedMultiplier;
+
+	unsigned int m_currentTime;
+	unsigned int m_timeToSpawn;
 public:
 
 	GameScreen();												// Constructor

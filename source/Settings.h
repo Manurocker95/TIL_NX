@@ -48,4 +48,8 @@ Copyright (C) 2018/2019 Manuel Rodríguez Matesanz
 
 #define MAX_CIRCLES 15
 
+#define MIN_TIME_TO_SPAWN 100
+#define MAX_TIME_TO_SPAWN 400
+
+#define ROUNDS_MULTIPLIER 2
 #endif
